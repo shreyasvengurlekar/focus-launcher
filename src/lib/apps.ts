@@ -6,7 +6,7 @@ export const allApps: App[] = [
   { id: 'camera', name: 'Camera' },
   { id: 'whatsapp', name: 'WhatsApp', url: 'https://web.whatsapp.com' },
   { id: 'chrome', name: 'Chrome', url: 'https://google.com' },
-  { id: 'settings', name: 'Settings' },
+  { id: 'settings', name: 'Settings', url: '/settings' },
   { id: 'gmail', name: 'Gmail', url: 'https://mail.google.com' },
   { id: 'maps', name: 'Maps', url: 'https://maps.google.com' },
   { id: 'calculator', name: 'Calculator' },

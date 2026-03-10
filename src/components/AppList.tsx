@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import type { App } from '@/lib/types';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 interface AppListProps {
   apps: App[];
@@ -11,6 +12,7 @@ interface AppListProps {
 
 export function AppList({ apps }: AppListProps) {
   const [searchTerm, setSearchTerm] = useState('');
+  const router = useRouter();
 
   const sortedAndFilteredApps = useMemo(() => {
     return apps
@@ -19,7 +21,10 @@ export function AppList({ apps }: AppListProps) {
   }, [apps, searchTerm]);
 
   const handleAppClick = (url?: string) => {
-    if (url) {
+    if (!url) return;
+    if (url.startsWith('/')) {
+      router.push(url);
+    } else {
       window.location.href = url;
     }
   };

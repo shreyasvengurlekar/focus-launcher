@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useReducer, useEffect, type Dispatch, type ReactNode } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, type Dispatch, type ReactNode, useRef } from 'react';
 import type { Settings } from './types';
 import { getSettings, saveSettings, resetSettings } from './storage';
 
@@ -54,21 +54,20 @@ const SettingsContext = createContext<SettingsContextType>({
   dispatch: () => null,
 });
 
-let isInitialized = false;
-
 export const SettingsProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(settingsReducer, initialState);
+  const isInitialized = useRef(false);
 
   useEffect(() => {
-    if (!isInitialized) {
+    if (!isInitialized.current) {
       const loadedSettings = getSettings();
       dispatch({ type: 'INITIALIZE_SETTINGS', payload: loadedSettings });
-      isInitialized = true;
+      isInitialized.current = true;
     }
   }, []);
 
   useEffect(() => {
-    if (isInitialized) {
+    if (isInitialized.current) {
       saveSettings(state);
     }
   }, [state]);

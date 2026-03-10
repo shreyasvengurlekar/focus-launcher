@@ -17,7 +17,7 @@ function getGreeting() {
 
 export default function Home() {
   const { showGreeting, isFocusMode } = useSettings();
-  const [greeting, setGreeting] = useState('');
+  const [greeting, setGreeting] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -34,10 +34,11 @@ export default function Home() {
     if (!query) return;
     const foundApp = allApps.find(app => app.name.toLowerCase().includes(query.toLowerCase()));
     if (foundApp?.url) {
-      window.location.href = foundApp.url;
-    } else if (foundApp) {
-      // For internal apps or apps without URLs
-      alert(`'Launching' ${foundApp.name}`);
+      if (foundApp.url.startsWith('/')) {
+        router.push(foundApp.url);
+      } else {
+        window.location.href = foundApp.url;
+      }
     }
   };
 
@@ -51,7 +52,7 @@ export default function Home() {
         <Clock />
       </header>
       <div className="mt-16 flex-1 space-y-8">
-        {showGreeting && <p className="text-center text-lg text-muted-foreground">{greeting}</p>}
+        {showGreeting && greeting && <p className="text-center text-lg text-muted-foreground">{greeting}</p>}
         <SearchBar onSearch={handleSearch} />
         <Favorites />
       </div>

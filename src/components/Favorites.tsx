@@ -4,13 +4,18 @@ import { useSettings } from '@/lib/store';
 import { allApps } from '@/lib/apps';
 import Link from 'next/link';
 import { Button } from './ui/button';
+import { useRouter } from 'next/navigation';
 
 export function Favorites() {
   const { favoriteAppIds } = useSettings();
+  const router = useRouter();
   const favoriteApps = allApps.filter(app => favoriteAppIds.includes(app.id));
 
   const handleAppClick = (url?: string) => {
-    if (url) {
+    if (!url) return;
+    if (url.startsWith('/')) {
+      router.push(url);
+    } else {
       window.location.href = url;
     }
   };
