@@ -50,19 +50,19 @@ export function SettingsPanel() {
   const sortedApps = [...allApps].sort((a,b) => a.name.localeCompare(b.name));
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <section className="space-y-4">
         <h2 className="text-xl font-semibold">Display</h2>
         <div className="flex items-center justify-between rounded-lg border p-4">
-          <Label htmlFor="hour-format">Use 12-hour format</Label>
+          <Label htmlFor="hour-format" className="cursor-pointer">Use 12-hour format</Label>
           <Switch id="hour-format" checked={hour12} onCheckedChange={() => dispatch({ type: 'TOGGLE_HOUR_FORMAT' })} />
         </div>
         <div className="flex items-center justify-between rounded-lg border p-4">
-          <Label htmlFor="show-date">Show date</Label>
+          <Label htmlFor="show-date" className="cursor-pointer">Show date</Label>
           <Switch id="show-date" checked={showDate} onCheckedChange={() => dispatch({ type: 'TOGGLE_SHOW_DATE' })} />
         </div>
         <div className="flex items-center justify-between rounded-lg border p-4">
-          <Label htmlFor="show-greeting">Show greeting</Label>
+          <Label htmlFor="show-greeting" className="cursor-pointer">Show greeting</Label>
           <Switch id="show-greeting" checked={showGreeting} onCheckedChange={() => dispatch({ type: 'TOGGLE_SHOW_GREETING' })} />
         </div>
       </section>
@@ -75,13 +75,13 @@ export function SettingsPanel() {
         <ScrollArea className="h-64 rounded-md border">
           <div className="p-4">
             {sortedApps.map(app => (
-              <div key={`fav-${app.id}`} className="flex items-center space-x-3 py-2">
+              <div key={`fav-${app.id}`} className="flex items-center space-x-3 py-3">
                 <Checkbox
                   id={`fav-${app.id}`}
                   checked={favoriteAppIds.includes(app.id)}
                   onCheckedChange={(checked) => handleMultiSelectChange(app.id, !!checked, favoriteAppIds, 'SET_FAVORITES')}
                 />
-                <label htmlFor={`fav-${app.id}`} className="text-base font-medium leading-none">
+                <label htmlFor={`fav-${app.id}`} className="text-base font-medium leading-none cursor-pointer">
                   {app.name}
                 </label>
               </div>
@@ -98,13 +98,13 @@ export function SettingsPanel() {
         <ScrollArea className="h-64 rounded-md border">
           <div className="p-4">
             {sortedApps.map(app => (
-              <div key={`hide-${app.id}`} className="flex items-center space-x-3 py-2">
+              <div key={`hide-${app.id}`} className="flex items-center space-x-3 py-3">
                 <Checkbox
                   id={`hide-${app.id}`}
                   checked={hiddenAppIds.includes(app.id)}
                   onCheckedChange={(checked) => handleMultiSelectChange(app.id, !!checked, hiddenAppIds, 'SET_HIDDEN_APPS')}
                 />
-                <label htmlFor={`hide-${app.id}`} className="text-base font-medium leading-none">
+                <label htmlFor={`hide-${app.id}`} className="text-base font-medium leading-none cursor-pointer">
                   {app.name}
                 </label>
               </div>
@@ -119,7 +119,7 @@ export function SettingsPanel() {
         <h2 className="text-xl font-semibold">Focus Mode</h2>
         <div className="flex items-center justify-between rounded-lg border p-4">
           <div className='flex flex-col gap-1.5'>
-            <Label htmlFor="focus-mode">Enable Focus Mode</Label>
+            <Label htmlFor="focus-mode" className="cursor-pointer">Enable Focus Mode</Label>
             <p className="text-sm text-muted-foreground">An ultra-minimal screen to help you focus.</p>
           </div>
           <Switch id="focus-mode" checked={isFocusMode} onCheckedChange={(checked) => dispatch({ type: 'SET_FOCUS_MODE', payload: checked })} />
@@ -128,13 +128,13 @@ export function SettingsPanel() {
         <ScrollArea className="h-64 rounded-md border">
           <div className="p-4">
             {sortedApps.map(app => (
-              <div key={`focus-${app.id}`} className="flex items-center space-x-3 py-2">
+              <div key={`focus-${app.id}`} className="flex items-center space-x-3 py-3">
                 <Checkbox
                   id={`focus-${app.id}`}
                   checked={focusModeAppIds.includes(app.id)}
                   onCheckedChange={(checked) => handleMultiSelectChange(app.id, !!checked, focusModeAppIds, 'SET_FOCUS_APPS')}
                 />
-                <label htmlFor={`focus-${app.id}`} className="text-base font-medium leading-none">
+                <label htmlFor={`focus-${app.id}`} className="text-base font-medium leading-none cursor-pointer">
                   {app.name}
                 </label>
               </div>

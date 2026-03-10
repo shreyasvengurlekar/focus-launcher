@@ -66,12 +66,12 @@ export function AppList({
                 <Popover>
                   <PopoverTrigger asChild>
                     <button
-                      className="w-full rounded-lg p-4 text-left text-lg transition-colors hover:bg-secondary data-[state=open]:bg-secondary"
+                      className="w-full rounded-lg p-4 text-left text-lg transition-colors hover:bg-accent"
                     >
                       {app.name}
                     </button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-60 p-0">
+                  <PopoverContent className="w-64 p-1">
                     <div className="flex flex-col">
                       <Button variant="ghost" className="justify-start p-4" onClick={() => handleAppClick(app.url)}>Launch</Button>
                       <Separator />

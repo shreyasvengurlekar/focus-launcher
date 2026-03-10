@@ -43,12 +43,12 @@ export default function Home() {
 
   return (
     <div className="flex h-full flex-col">
-      <header className="flex-shrink-0 pt-16">
+      <header className="flex-shrink-0 pt-24">
         <Clock />
       </header>
-      <div className="mt-16 flex-1 space-y-8 md:space-y-12">
+      <div className="mt-24 flex-1 space-y-16">
         {showGreeting && greeting && (
-          <p className="text-center text-lg text-muted-foreground">{greeting}</p>
+          <p className="text-center text-xl text-muted-foreground">{greeting}</p>
         )}
         <SearchBar onSearch={handleSearch} />
         <Favorites />

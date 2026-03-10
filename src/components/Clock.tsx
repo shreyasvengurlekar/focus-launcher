@@ -27,22 +27,22 @@ export function Clock() {
   if (!time) {
     return (
       <div className="text-center">
-        <div className="text-8xl font-bold tracking-tighter opacity-0">
+        <div className="text-9xl font-light tracking-tight opacity-0">
           <span>00:00</span>
-          {hour12 && <span className="text-4xl align-middle font-medium">AM</span>}
+          {hour12 && <span className="text-5xl align-middle font-normal">AM</span>}
         </div>
-        {showDate && <p className="text-lg text-muted-foreground opacity-0">Thursday, 1 January</p>}
+        {showDate && <p className="mt-2 text-xl text-muted-foreground opacity-0">Thursday, 1 January</p>}
       </div>
     );
   }
 
   return (
     <div className="text-center">
-      <div className="text-8xl font-bold tracking-tighter">
+      <div className="text-9xl font-light tracking-tight">
         <span>{format(time, timeFormat)}</span>
-        {hour12 && <span className="text-4xl align-middle font-medium">{format(time, ampmFormat)}</span>}
+        {hour12 && <span className="text-5xl align-middle font-normal">{format(time, ampmFormat)}</span>}
       </div>
-      {showDate && <p className="text-lg text-muted-foreground">{format(time, dateFormat)}</p>}
+      {showDate && <p className="mt-2 text-xl text-muted-foreground">{format(time, dateFormat)}</p>}
     </div>
   );
 }

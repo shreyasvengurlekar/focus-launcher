@@ -36,18 +36,18 @@ export function Favorites() {
 
   return (
     <div>
-      <h2 className="mb-4 text-center text-sm font-medium uppercase tracking-widest text-muted-foreground">Favorites</h2>
-      <div className="grid grid-cols-4 gap-x-4 gap-y-6">
+      <h2 className="mb-6 text-center text-sm font-medium uppercase tracking-widest text-muted-foreground">Favorites</h2>
+      <div className="grid grid-cols-4 gap-x-6 gap-y-8">
         {favoriteApps.map(app => (
           <div
             key={app.id}
             onClick={() => handleAppClick(app.url)}
-            className="flex cursor-pointer flex-col items-center gap-2 rounded-lg p-2 transition-colors hover:bg-secondary"
+            className="flex cursor-pointer flex-col items-center gap-2 rounded-lg p-2 transition-colors hover:bg-accent"
           >
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-secondary">
-              <span className="text-3xl font-bold">{app.name.charAt(0)}</span>
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-accent">
+              <span className="text-2xl font-medium">{app.name.charAt(0)}</span>
             </div>
-            <span className="w-full truncate text-center text-xs">{app.name}</span>
+            <span className="w-full truncate text-center text-sm">{app.name}</span>
           </div>
         ))}
       </div>
