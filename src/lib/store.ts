@@ -73,7 +73,7 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [state]);
 
-  return <SettingsContext.Provider value={{ ...state, dispatch }}>{children}</SettingsContext.Provider>;
+  return React.createElement(SettingsContext.Provider, { value: { ...state, dispatch } }, children);
 };
 
 export const useSettings = () => useContext(SettingsContext);
