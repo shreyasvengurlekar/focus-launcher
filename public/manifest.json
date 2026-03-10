@@ -1,0 +1,22 @@
+{
+  "name": "Minimalist Launcher",
+  "short_name": "Launcher",
+  "description": "A minimalist, distraction-free phone launcher experience as a PWA.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#141216",
+  "theme_color": "#141216",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
