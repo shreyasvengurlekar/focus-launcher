@@ -10,4 +10,7 @@ export interface Settings {
   showGreeting: boolean;
   isFocusMode: boolean;
   favoriteAppIds: string[];
+  focusModeAppIds: string[];
+  hiddenAppIds: string[];
+  onboardingComplete: boolean;
 }

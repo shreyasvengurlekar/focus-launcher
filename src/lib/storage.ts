@@ -2,14 +2,17 @@
 
 import type { Settings } from './types';
 
-const SETTINGS_KEY = 'minimalist-launcher-settings';
+const SETTINGS_KEY = 'mono-launcher-settings';
 
-const defaultSettings: Settings = {
+export const defaultSettings: Settings = {
   hour12: false,
   showDate: true,
   showGreeting: true,
   isFocusMode: false,
   favoriteAppIds: ['phone', 'messages', 'camera', 'chrome'],
+  focusModeAppIds: ['phone', 'messages'],
+  hiddenAppIds: [],
+  onboardingComplete: false,
 };
 
 export function getSettings(): Settings {
@@ -19,7 +22,9 @@ export function getSettings(): Settings {
   try {
     const settings = localStorage.getItem(SETTINGS_KEY);
     if (settings) {
-      return { ...defaultSettings, ...JSON.parse(settings) };
+      const parsed = JSON.parse(settings);
+      // Merge parsed settings with defaults to ensure all keys are present
+      return { ...defaultSettings, ...parsed };
     }
     return defaultSettings;
   } catch (error) {
@@ -39,9 +44,10 @@ export function saveSettings(settings: Settings): void {
   }
 }
 
-export function resetSettings(): void {
-  if (typeof window === 'undefined') {
-    return;
+export function resetSettings(): Settings {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem(SETTINGS_KEY);
   }
-  localStorage.removeItem(SETTINGS_KEY);
+  // Return a fresh copy of defaultSettings for the reducer
+  return { ...defaultSettings, onboardingComplete: true };
 }

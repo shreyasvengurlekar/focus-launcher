@@ -1,31 +1,34 @@
-# Minimalist Launcher PWA
+# Mono Launcher PWA
 
-This is a Next.js Progressive Web App (PWA) that simulates a minimalist, distraction-free phone launcher experience. The app is designed to be mobile-first and installable on mobile devices for a native-like feel.
+This is a Next.js Progressive Web App (PWA) that simulates a minimalist, distraction-free phone launcher experience. The app is designed to be mobile-first, installable, and focused on calm, intentional phone use.
+
+Inspired by minimalist launchers, this app provides a text-based, monochrome interface to reduce visual clutter and help you focus.
 
 ## Features
 
-- **Home Screen**: A clean interface with a large clock, date, greeting, and favorite apps.
-- **App Drawer**: A searchable, text-only list of all available applications.
-- **Settings**: Customize the launcher's appearance and behavior.
-- **Focus Mode**: An ultra-minimalist mode showing only the essentials.
-- **PWA Ready**: Installable on your home screen with offline capabilities.
-- **Persistent State**: Your settings and favorites are saved locally on your device.
+-   **Minimalist Home Screen**: A clean interface with a large clock, date, and your favorite apps.
+-   **Text-Only App Drawer**: A searchable, alphabetical list of all your applications.
+-   **Comprehensive Settings**: Customize the launcher's appearance, choose favorites, hide apps, and more.
+-   **Focus Mode**: An ultra-minimalist mode showing only the time and essential apps to eliminate distractions.
+-   **Onboarding**: A simple first-time setup to personalize your experience.
+-   **PWA Ready**: Fully installable on your home screen with offline capabilities for a native-like feel.
+-   **Persistent State**: Your settings and favorites are saved locally on your device.
 
 ## Tech Stack
 
-- [Next.js](https://nextjs.org/) (with App Router)
-- [React](https://reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Shadcn/ui](https://ui.shadcn.com/)
-- [@ducanh2912/next-pwa](https://github.com/DuCanh2912/next-pwa) for PWA support
+-   [Next.js](https://nextjs.org/) (with App Router)
+-   [React](https://reactjs.org/)
+-   [TypeScript](https://www.typescriptlang.org/)
+-   [Tailwind CSS](https://tailwindcss.com/)
+-   [Shadcn/ui](https://ui.shadcn.com/) for core components
+-   [next-pwa](https://github.com/shadowwalker/next-pwa) for PWA support
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v18 or later recommended)
-- npm, yarn, or pnpm
+-   Node.js (v18 or later recommended)
+-   npm, yarn, or pnpm
 
 ### Installation
 
@@ -35,7 +38,7 @@ This is a Next.js Progressive Web App (PWA) that simulates a minimalist, distrac
     ```
 2.  Navigate to the project directory:
     ```bash
-    cd minimalist-launcher
+    cd mono-launcher
     ```
 3.  Install dependencies:
     ```bash
@@ -62,7 +65,7 @@ npm run build
 
 This will generate an optimized version of the app in the `.next` directory and create the PWA service worker files in the `public` directory.
 
-## Deploying to Firebase App Hosting
+## Firebase Deployment
 
 This project is configured for deployment to **Firebase App Hosting**, which is the recommended solution for Next.js applications on Firebase.
 
@@ -94,4 +97,5 @@ This project is configured for deployment to **Firebase App Hosting**, which is 
     ```bash
     firebase deploy --only apphosting
     ```
-    The Firebase CLI will automatically build your Next.js application and deploy it to a live URL on Firebase App Hosting. Your `apphosting.yaml` file is already configured with basic settings for this deployment.
+
+    The Firebase CLI will automatically build your Next.js application and deploy it to a live URL on Firebase App Hosting. The `apphosting.yaml` file is already configured for a basic deployment.

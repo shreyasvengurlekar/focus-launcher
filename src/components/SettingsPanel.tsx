@@ -8,6 +8,17 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 
 export function SettingsPanel() {
   const {
@@ -16,18 +27,27 @@ export function SettingsPanel() {
     showGreeting,
     isFocusMode,
     favoriteAppIds,
+    focusModeAppIds,
+    hiddenAppIds,
     dispatch,
   } = useSettings();
 
-  const handleFavoriteChange = (appId: string, checked: boolean) => {
-    let newFavorites;
+  const handleMultiSelectChange = (
+    appId: string,
+    checked: boolean,
+    currentList: string[],
+    actionType: 'SET_FAVORITES' | 'SET_FOCUS_APPS' | 'SET_HIDDEN_APPS'
+  ) => {
+    let newList;
     if (checked) {
-      newFavorites = [...favoriteAppIds, appId];
+      newList = [...currentList, appId];
     } else {
-      newFavorites = favoriteAppIds.filter(id => id !== appId);
+      newList = currentList.filter(id => id !== appId);
     }
-    dispatch({ type: 'SET_FAVORITES', payload: newFavorites });
+    dispatch({ type: actionType, payload: newList });
   };
+  
+  const sortedApps = [...allApps].sort((a,b) => a.name.localeCompare(b.name));
 
   return (
     <div className="space-y-8">
@@ -54,17 +74,37 @@ export function SettingsPanel() {
         <p className="text-sm text-muted-foreground">Select apps to show on the home screen.</p>
         <ScrollArea className="h-64 rounded-md border">
           <div className="p-4">
-            {allApps.map(app => (
-              <div key={app.id} className="flex items-center space-x-2 py-2">
+            {sortedApps.map(app => (
+              <div key={`fav-${app.id}`} className="flex items-center space-x-3 py-2">
                 <Checkbox
                   id={`fav-${app.id}`}
                   checked={favoriteAppIds.includes(app.id)}
-                  onCheckedChange={(checked) => handleFavoriteChange(app.id, !!checked)}
+                  onCheckedChange={(checked) => handleMultiSelectChange(app.id, !!checked, favoriteAppIds, 'SET_FAVORITES')}
                 />
-                <label
-                  htmlFor={`fav-${app.id}`}
-                  className="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
+                <label htmlFor={`fav-${app.id}`} className="text-base font-medium leading-none">
+                  {app.name}
+                </label>
+              </div>
+            ))}
+          </div>
+        </ScrollArea>
+      </section>
+      
+      <Separator />
+
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold">Hidden Apps</h2>
+        <p className="text-sm text-muted-foreground">Hide apps from all lists and search results.</p>
+        <ScrollArea className="h-64 rounded-md border">
+          <div className="p-4">
+            {sortedApps.map(app => (
+              <div key={`hide-${app.id}`} className="flex items-center space-x-3 py-2">
+                <Checkbox
+                  id={`hide-${app.id}`}
+                  checked={hiddenAppIds.includes(app.id)}
+                  onCheckedChange={(checked) => handleMultiSelectChange(app.id, !!checked, hiddenAppIds, 'SET_HIDDEN_APPS')}
+                />
+                <label htmlFor={`hide-${app.id}`} className="text-base font-medium leading-none">
                   {app.name}
                 </label>
               </div>
@@ -76,19 +116,55 @@ export function SettingsPanel() {
       <Separator />
 
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold">Modes</h2>
+        <h2 className="text-xl font-semibold">Focus Mode</h2>
         <div className="flex items-center justify-between rounded-lg border p-4">
-          <Label htmlFor="focus-mode">Enable Focus Mode</Label>
-          <Switch id="focus-mode" checked={isFocusMode} onCheckedChange={() => dispatch({ type: 'TOGGLE_FOCUS_MODE' })} />
+          <div className='flex flex-col gap-1.5'>
+            <Label htmlFor="focus-mode">Enable Focus Mode</Label>
+            <p className="text-sm text-muted-foreground">An ultra-minimal screen to help you focus.</p>
+          </div>
+          <Switch id="focus-mode" checked={isFocusMode} onCheckedChange={(checked) => dispatch({ type: 'SET_FOCUS_MODE', payload: checked })} />
         </div>
+        <p className="text-sm text-muted-foreground">Select essential apps for Focus Mode.</p>
+        <ScrollArea className="h-64 rounded-md border">
+          <div className="p-4">
+            {sortedApps.map(app => (
+              <div key={`focus-${app.id}`} className="flex items-center space-x-3 py-2">
+                <Checkbox
+                  id={`focus-${app.id}`}
+                  checked={focusModeAppIds.includes(app.id)}
+                  onCheckedChange={(checked) => handleMultiSelectChange(app.id, !!checked, focusModeAppIds, 'SET_FOCUS_APPS')}
+                />
+                <label htmlFor={`focus-${app.id}`} className="text-base font-medium leading-none">
+                  {app.name}
+                </label>
+              </div>
+            ))}
+          </div>
+        </ScrollArea>
       </section>
 
       <Separator />
 
       <section>
-        <Button variant="destructive" onClick={() => dispatch({ type: 'RESET_SETTINGS' })}>
-          Reset All Settings
-        </Button>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="destructive">Reset All Settings</Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This will reset all your personalized settings, including favorites and hidden apps, to their default values. This action cannot be undone.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={() => dispatch({ type: 'RESET_SETTINGS' })}>
+                Reset
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </section>
     </div>
   );

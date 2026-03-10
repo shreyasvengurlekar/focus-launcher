@@ -12,4 +12,9 @@ export const allApps: App[] = [
   { id: 'calculator', name: 'Calculator' },
   { id: 'calendar', name: 'Calendar' },
   { id: 'youtube', name: 'YouTube', url: 'https://youtube.com' },
+  { id: 'clock', name: 'Clock' },
+  { id: 'contacts', name: 'Contacts' },
+  { id: 'files', name: 'Files' },
+  { id: 'spotify', name: 'Spotify', url: 'https://open.spotify.com' },
+  { id: 'notes', name: 'Notes' },
 ];

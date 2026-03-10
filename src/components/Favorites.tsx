@@ -7,9 +7,12 @@ import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
 
 export function Favorites() {
-  const { favoriteAppIds } = useSettings();
+  const { favoriteAppIds, hiddenAppIds } = useSettings();
   const router = useRouter();
-  const favoriteApps = allApps.filter(app => favoriteAppIds.includes(app.id));
+  
+  const favoriteApps = allApps.filter(
+    app => favoriteAppIds.includes(app.id) && !hiddenAppIds.includes(app.id)
+  );
 
   const handleAppClick = (url?: string) => {
     if (!url) return;
@@ -22,10 +25,10 @@ export function Favorites() {
 
   if (favoriteApps.length === 0) {
     return (
-      <div className="text-center text-muted-foreground">
-        <p>No favorite apps selected.</p>
+      <div className="text-center text-muted-foreground py-8">
+        <p>No favorite apps to show.</p>
         <Button variant="link" asChild>
-          <Link href="/settings">Add favorites</Link>
+          <Link href="/apps">Manage Favorites</Link>
         </Button>
       </div>
     );
@@ -33,16 +36,16 @@ export function Favorites() {
 
   return (
     <div>
-      <h2 className="mb-4 text-center text-sm font-medium text-muted-foreground">FAVORITES</h2>
-      <div className="grid grid-cols-4 gap-4">
+      <h2 className="mb-4 text-center text-sm font-medium uppercase tracking-widest text-muted-foreground">Favorites</h2>
+      <div className="grid grid-cols-4 gap-x-4 gap-y-6">
         {favoriteApps.map(app => (
           <div
             key={app.id}
             onClick={() => handleAppClick(app.url)}
             className="flex cursor-pointer flex-col items-center gap-2 rounded-lg p-2 transition-colors hover:bg-secondary"
           >
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-secondary">
-              <span className="text-2xl font-bold">{app.name.charAt(0)}</span>
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-secondary">
+              <span className="text-3xl font-bold">{app.name.charAt(0)}</span>
             </div>
             <span className="w-full truncate text-center text-xs">{app.name}</span>
           </div>

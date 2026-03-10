@@ -5,7 +5,7 @@ import { useSettings } from '@/lib/store';
 import { format } from 'date-fns';
 
 export function Clock() {
-  const [time, setTime] = useState(new Date());
+  const [time, setTime] = useState(() => new Date());
   const { hour12, showDate } = useSettings();
 
   useEffect(() => {
@@ -21,9 +21,9 @@ export function Clock() {
 
   return (
     <div className="text-center">
-      <div className="text-7xl font-bold tracking-tighter">
+      <div className="text-8xl font-bold tracking-tighter">
         <span>{format(time, timeFormat)}</span>
-        {hour12 && <span className="text-4xl align-middle">{format(time, ampmFormat)}</span>}
+        {hour12 && <span className="text-4xl align-middle font-medium">{format(time, ampmFormat)}</span>}
       </div>
       {showDate && <p className="text-lg text-muted-foreground">{format(time, dateFormat)}</p>}
     </div>
