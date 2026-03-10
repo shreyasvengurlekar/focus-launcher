@@ -1,7 +1,8 @@
-# Settings to manage and configure a Firebase App Hosting backend.
-# https://firebase.google.com/docs/app-hosting/configure
+# This file configures Firebase App Hosting, the recommended service for deploying Next.js applications to Firebase.
+# It provides a managed, serverful environment that supports Next.js features like SSR, API Routes, and more.
+# To learn more, visit: https://firebase.google.com/docs/app-hosting/configure
 
 runConfig:
-  # Increase this value if you'd like to automatically spin up
-  # more instances in response to increased traffic.
+  # Sets the maximum number of server instances that can run for your app.
+  # Increase this value to automatically scale up in response to increased traffic.
   maxInstances: 1

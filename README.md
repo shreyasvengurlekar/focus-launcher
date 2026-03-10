@@ -62,24 +62,36 @@ npm run build
 
 This will generate an optimized version of the app in the `.next` directory and create the PWA service worker files in the `public` directory.
 
-### Deploying to Firebase App Hosting
+## Deploying to Firebase App Hosting
 
-This project is ready to be deployed to Firebase App Hosting.
+This project is configured for deployment to **Firebase App Hosting**, which is the recommended solution for Next.js applications on Firebase.
 
-1.  **Install Firebase CLI**:
-    If you haven't already, install the Firebase CLI globally:
+### Prerequisites
+
+1.  You must have a Firebase project. If you don't have one, create one at the [Firebase Console](https://console.firebase.google.com/).
+2.  Install the Firebase CLI globally:
     ```bash
     npm install -g firebase-tools
     ```
 
-2.  **Login to Firebase**:
+### Deployment Steps
+
+1.  **Login to Firebase**:
+    Log in to your Google account using the Firebase CLI.
     ```bash
     firebase login
     ```
 
-3.  **Deploy**:
-    From the root of your project directory, run the following command:
+2.  **Initialize Firebase in your project (if you haven't already)**:
+    From the root of your project directory, run:
+    ```bash
+    firebase init apphosting
+    ```
+    Follow the prompts to connect your local project to your Firebase project. This will create `.firebaserc` and `firebase.json` files.
+
+3.  **Deploy your app**:
+    Run the deploy command:
     ```bash
     firebase deploy --only apphosting
     ```
-    The Firebase CLI will build your Next.js application and deploy it to Firebase App Hosting. Your `apphosting.yaml` file is already configured for this.
+    The Firebase CLI will automatically build your Next.js application and deploy it to a live URL on Firebase App Hosting. Your `apphosting.yaml` file is already configured with basic settings for this deployment.
